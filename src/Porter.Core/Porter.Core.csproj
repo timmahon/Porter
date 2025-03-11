@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Porter</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IKVM" />
+    <PackageReference Include="Microsoft.CodeAnalysis" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp"  />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="eclipse-jdt-3.26">
+      <HintPath>..\..\.dlls\eclipse-jdt-3.26.dll</HintPath>
+    </Reference>
+    <Reference Include="maven-3.8.6">
+      <HintPath>..\..\.dlls\maven-3.8.6.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

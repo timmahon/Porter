@@ -1,0 +1,107 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IKVM" Version="8.11.2" />
+    <PackageReference Include="System.Text.Json" Version="9.0.2" />
+  </ItemGroup>
+
+  <Target Name="DeleteJarFiles" AfterTargets="Clean">
+    <ItemGroup>
+      <JarFilesToDelete Include="..\..\.jars\**\*.jar" />
+      <DllFilesToDelete Include="..\..\.dlls\*.dll" />
+    </ItemGroup>
+    <Delete Files="@(JarFilesToDelete)" />
+    <Delete Files="@(DllFilesToDelete)" />
+  </Target>
+
+  <Target Name="DownloadMavenArtifacts">
+    <!-- Eclipse Jars -->
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.commands/3.9.800/org.eclipse.core.commands-3.9.800.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.commands-3.9.800.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.contenttype/3.7.1000/org.eclipse.core.contenttype-3.7.1000.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.contenttype-3.7.1000.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.expressions/3.7.100/org.eclipse.core.expressions-3.7.100.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.expressions-3.7.100.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.filesystem/1.7.700/org.eclipse.core.filesystem-1.7.700.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.filesystem-1.7.700.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.jobs/3.11.0/org.eclipse.core.jobs-3.11.0.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.jobs-3.11.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.resources/3.14.0/org.eclipse.core.resources-3.14.0.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.resources-3.14.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.core.runtime/3.20.100/org.eclipse.core.runtime-3.20.100.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.core.runtime-3.20.100.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.app/1.5.100/org.eclipse.equinox.app-1.5.100.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.equinox.app-1.5.100.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.common/3.14.0/org.eclipse.equinox.common-3.14.0.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.equinox.common-3.14.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.preferences/3.9.100/org.eclipse.equinox.preferences-3.9.100.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.equinox.preferences-3.9.100.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.equinox.registry/3.10.200/org.eclipse.equinox.registry-3.10.200.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.equinox.registry-3.10.200.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/jdt/org.eclipse.jdt.core/3.26.0/org.eclipse.jdt.core-3.26.0.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.jdt.core-3.26.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.osgi/3.18.100/org.eclipse.osgi-3.18.100.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.osgi-3.18.100.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/platform/org.eclipse.text/3.11.0/org.eclipse.text-3.11.0.jar" DestinationFolder="../../.jars/eclipse" Condition="!Exists('../../.jars/eclipse/org.eclipse.text-3.11.0.jar')" />
+    <!-- Maven Jars -->
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.6.3/maven-resolver-api-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-api-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-spi/1.6.3/maven-resolver-spi-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-spi-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-impl/1.6.3/maven-resolver-impl-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-impl-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-util/1.6.3/maven-resolver-util-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-util-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/commons-lang3-3.8.1.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/slf4j-api-1.7.30.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/slf4j/slf4j-simple/1.7.30/slf4j-simple-1.7.30.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/slf4j-simple-1.7.30.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-connector-basic/1.6.3/maven-resolver-connector-basic-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-connector-basic-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-transport-file/1.6.3/maven-resolver-transport-file-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-transport-file-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-transport-http/1.6.3/maven-resolver-transport-http-1.6.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-transport-http-1.6.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.12/httpclient-4.5.12.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/httpclient-4.5.12.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/commons-codec-1.11.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/httpcore-4.4.13.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/slf4j/jcl-over-slf4j/1.7.30/jcl-over-slf4j-1.7.30.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/jcl-over-slf4j-1.7.30.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-model/3.8.6/maven-model-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-model-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils/3.3.1/plexus-utils-3.3.1.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/plexus-utils-3.3.1.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-core/3.8.6/maven-core-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-core-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-settings/3.8.6/maven-settings-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-settings-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-builder-support/3.8.6/maven-builder-support-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-builder-support-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-repository-metadata/3.8.6/maven-repository-metadata-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-repository-metadata-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-artifact/3.8.6/maven-artifact-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-artifact-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/3.8.6/maven-plugin-api-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-plugin-api-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-model-builder/3.8.6/maven-model-builder-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-model-builder-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/shared/maven-shared-utils/3.3.4/maven-shared-utils-3.3.4.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-shared-utils-3.3.4.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/commons-io-2.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.5/org.eclipse.sisu.plexus-0.3.5.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/org.eclipse.sisu.plexus-0.3.5.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/javax.annotation-api-1.2.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.5/org.eclipse.sisu.inject-0.3.5.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/org.eclipse.sisu.inject-0.3.5.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/com/google/inject/guice/4.2.2/guice-4.2.2-no_aop.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/guice-4.2.2-no_aop.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/aopalliance-1.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/com/google/guava/guava/25.1-android/guava-25.1-android.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/guava-25.1-android.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/jsr305-3.0.2.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/checkerframework/checker-compat-qual/2.0.0/checker-compat-qual-2.0.0.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/checker-compat-qual-2.0.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/error_prone_annotations-2.1.3.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/j2objc-annotations-1.1.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/animal-sniffer-annotations-1.14.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/javax.inject-1.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-classworlds/2.6.0/plexus-classworlds-2.6.0.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/plexus-classworlds-2.6.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/plexus-interpolation-1.26.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-component-annotations/2.1.0/plexus-component-annotations-2.1.0.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/plexus-component-annotations-2.1.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-resolver-provider/3.8.6/maven-resolver-provider-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-resolver-provider-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/apache/maven/maven-settings-builder/3.8.6/maven-settings-builder-3.8.6.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/maven-settings-builder-3.8.6.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-sec-dispatcher/2.0/plexus-sec-dispatcher-2.0.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/plexus-sec-dispatcher-2.0.jar')" />
+    <DownloadFile SourceUrl="https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-cipher/2.0/plexus-cipher-2.0.jar" DestinationFolder="../../.jars/maven" Condition="!Exists('../../.jars/maven/plexus-cipher-2.0.jar')" />
+  </Target>
+
+  <Target Name="GetIkvmReferenceFromMaven" DependsOnTargets="DownloadMavenArtifacts" BeforeTargets="GetIkvmReferenceItemsFromIkvmReferences">
+    <ItemGroup>
+      <IkvmReference Include="eclipse-jdt-3.26">
+        <AssemblyName>eclipse-jdt-3.26</AssemblyName>
+        <AssemblyVersion>3.26.0.0</AssemblyVersion>
+        <AssemblyFileVersion>3.26.0.0</AssemblyFileVersion>
+        <Compile>..\..\.jars\eclipse\*.jar</Compile>
+      </IkvmReference>
+      <IkvmReference Include="maven-3.8.6">
+        <AssemblyName>maven-3.8.6</AssemblyName>
+        <AssemblyVersion>3.8.6.0</AssemblyVersion>
+        <AssemblyFileVersion>3.8.6.0</AssemblyFileVersion>
+        <Compile>..\..\.jars\maven\*.jar</Compile>
+      </IkvmReference>
+    </ItemGroup>
+
+  </Target>
+
+  <Target Name="CopyGeneratedDLLs" AfterTargets="CompileIkvmReferences" Condition="!Exists('../../.dlls/eclipse-jdt-3.26.dll') Or !Exists('../../.dlls/maven-3.8.6.dll')">
+    <Copy SourceFiles="%(IkvmReferenceItem.CachePath)" DestinationFolder="../../.dlls" />
+  </Target>
+</Project>

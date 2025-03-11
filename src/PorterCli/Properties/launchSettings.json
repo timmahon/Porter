@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PorterCli": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Work\\JavaConversions\\OpenNLP"
+    }
+  }
+}
