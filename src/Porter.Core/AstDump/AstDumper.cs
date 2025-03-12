@@ -21,7 +21,7 @@ public class AstDumper
 
     public override string ToString()
     {
-        return _printer.ToString();
+        return _printer.ToString() ?? string.Empty;
     }
 
     private void Walk(ASTNode node)

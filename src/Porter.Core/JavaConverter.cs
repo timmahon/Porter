@@ -84,7 +84,7 @@ public class JavaConverter
             targetFolder = System.IO.Path.Combine(targetFolder, projectMapping.FilePath);
         }
 
-        string cuParent = Directory.GetParent(cu).FullName.Replace("\\", "/");
+        string cuParent = Directory.GetParent(cu)!.FullName.Replace("\\", "/");
         string packageName = generatedNamespace == null ? cuParent.Substring(cuParent.LastIndexOf("/")) : CleanupNamespace(generatedNamespace);
         if (packageName.Length > 0)
         {
@@ -143,7 +143,7 @@ public class JavaConverter
             var jsonFile = packageName.Replace('.', System.IO.Path.DirectorySeparatorChar) + ".json";
             var outputFile = Path.Combine(_outputContext.NetPath, "asts", jsonFile);
 
-            Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
+            Directory.CreateDirectory(Path.GetDirectoryName(outputFile)!);
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             var dumper = new AstDumper(new JsonStyleAstPrinter(sb));
@@ -183,8 +183,8 @@ public class JavaConverter
 
         public void Clear()
         {
-            PackageName = null;
-            TypeName = null;
+            PackageName = default!;
+            TypeName = default!;
         }
 
         public override bool visit(PackageDeclaration node)

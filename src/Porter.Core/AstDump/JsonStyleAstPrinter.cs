@@ -89,6 +89,9 @@ public class JsonStyleAstPrinter : Indenter, IAstPrinter
     }
     public void Literal(string name, object value)
     {
+        ArgumentException.ThrowIfNullOrEmpty(name);
+        ArgumentNullException.ThrowIfNull(value);
+
         if (_hasItemsStack.Peek() == true)
         {
             _sb.AppendLine(",");
@@ -132,7 +135,7 @@ public class JsonStyleAstPrinter : Indenter, IAstPrinter
         return _sb.ToString();
     }
 
-    private string JsonEscape(string s)
+    private string JsonEscape(string? s)
     {
         if (s == null || s.Length == 0)
         {

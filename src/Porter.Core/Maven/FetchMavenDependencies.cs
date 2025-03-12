@@ -81,14 +81,14 @@ public static class FetchMavenDependencies
     {
         var mavenRef = new MavenReference();
 
-        if (!(string.IsNullOrEmpty(dep)))
+        if (!string.IsNullOrEmpty(dep))
         {
             var artifact = dep.Split(':');
             if (artifact.Length == 2 || artifact.Length == 3)
             {
                 var groupId = artifact[0];
                 var artifactId = artifact[1];
-                var version = artifact.Length >=3 ? artifact[2] : null;
+                var version = artifact.Length >=3 ? artifact[2] : string.Empty;
 
                 mavenRef.GroupId = groupId;
                 mavenRef.ArtifactId = artifactId;
