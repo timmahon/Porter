@@ -4,8 +4,15 @@ namespace Porter.Visitors.Declarations;
 
 public class TypeDeclarationVisitor : NodeVisitor<TypeDeclaration>
 {
+    private readonly ITypeMapper _typeMapper;
+
+    public TypeDeclarationVisitor(ITypeMapper typeMapper)
+    {
+        _typeMapper=typeMapper;
+    }
+
     public override void Visit(TypeDeclaration node)
     {
-        throw new NotImplementedException();
+        _typeMapper.MapType(node);
     }
 }
